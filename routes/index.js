@@ -36,4 +36,6 @@ router.get('/', function(req, res, next) {
 
 /*TODO: getNewMessages */
 
+/* */
+
 module.exports = router;
