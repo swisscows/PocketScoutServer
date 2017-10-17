@@ -9,6 +9,11 @@ router.get('/', function(req, res, next) {
 });
 
 /*TODO: addUser */
+router.get('/addUser/:username/:email/', function(req, res){
+  var params = req.params;
+  console.log(params);
+  res.send("Testing");
+});
 
 /*TODO: removeUser */
 
