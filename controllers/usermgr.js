@@ -2,7 +2,7 @@ var db = require('../dbHelper.js');
 
 
 function getUser(userID){
-    db.connect();
+    
 }
 
 function removeUser(userID){
