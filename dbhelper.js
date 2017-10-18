@@ -22,6 +22,7 @@ init();
 module.exports = {
     query: function(queryString){
         connectionPool.getConnection(function(err, connection){
+            console.log("Executing Query: ", queryString);
             connection.query(queryString, function(error, results, fields){
 
 
@@ -30,6 +31,10 @@ module.exports = {
                     console.log("Error when querying DB.....");
                     console.log(error);
                 }
+
+                console.log("DB QUERY RESULTS:");
+                console.log(results);
+                return results;
             });
             
         })

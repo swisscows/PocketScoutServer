@@ -12,6 +12,7 @@ var restrictedChars = "\/'+=-_|[](){},.?!@#$%^&*:;\"";
 /* DEBUGGING */
 router.get('/testdb', function(req, res){
   db.test();
+  db.query("INSERT INTO ps_users (username, password, email, dateJoined, fk_user_type) VALUES ('nodetest', 'pass', 'node@node.com', '1991-09-01 10:11:12', 0);");
   res.send("Testing DB......");
 })
 
@@ -21,10 +22,10 @@ router.get('/', function(req, res, next) {
 });
 
 /*TODO: addUser */
-router.post('/addUser/:username/:email/', function(req, res){
+router.post('/addUser/:username/:password/:email/:datejoined/:usertype', function(req, res){
   var params = req.params;
   console.log(params);
-  res.send("Testing");
+  res.sendStatus(200);
 });
 
 /*TODO: removeUser */
