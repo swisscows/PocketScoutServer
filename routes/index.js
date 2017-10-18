@@ -11,7 +11,7 @@ var restrictedChars = "\/'+=-_|[](){},.?!@#$%^&*:;\"";
 
 /* DEBUGGING */
 router.get('/testdb', function(req, res){
-  db.connect();
+  db.test();
   res.send("Testing DB......");
 })
 
