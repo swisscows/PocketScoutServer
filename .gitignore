@@ -64,3 +64,4 @@ typings/
 !.elasticbeanstalk/*.global.yml
 credentials.js
 PocketScoutServerOct15.zip
+dbHelper.js
