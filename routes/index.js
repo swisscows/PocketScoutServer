@@ -26,6 +26,23 @@ router.post('/addUser', function(req, res){
   res.sendStatus(200);
 });
 
+router.get('/getUser/:userID', function(req, res){
+  var user = userManager.getUser(req.params.userID)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
+});
+
+router.get('/getUsersByGroup/:groupID', function(req, res){
+  userManager.getUsersInGroup(req.params.groupID)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
+  
+});
+
 /*TODO: removeUser */
 router.delete('/deleteUser', function(req, res){
 

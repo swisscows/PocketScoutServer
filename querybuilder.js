@@ -141,16 +141,16 @@ function buildQuery(options) {
         }
         
         var result = commands.select;
-        result += " (";
+        result += " ";
         options.cols.forEach(function (c, i, a) {
             if (a.length - 1 == i) {
-                result += c + ")";
+                result += c + "";
             } else {
                 result += c + ", ";
             }
         });
-        result += " FROM " + options.tableName + " WHERE ";
-        result += options.where + ";";
+        result += " FROM " + options.tableName + " WHERE (";
+        result += options.where + ");";
         return result;
     // INSERT
     } else if (options.command == commands.insert) {

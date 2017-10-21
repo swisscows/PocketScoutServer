@@ -21,23 +21,26 @@ init();
 
 module.exports = {
     query: function(queryString){
-        connectionPool.getConnection(function(err, connection){
-            console.log("Executing Query: ", queryString);
-            connection.query(queryString, function(error, results, fields){
+        return new Promise(function(resolve, reject){
+            connectionPool.getConnection(function(err, connection){
+                console.log("Executing Query: ", queryString);
+                connection.query(queryString, function(error, results, fields){
+                    connection.release();
+                    if(error){
+                        console.log("Error when querying DB.....");
+                        console.log(error);
+                        reject(error);
+                        return null;
+                    }
 
-
-                connection.release();
-                if(error){
-                    console.log("Error when querying DB.....");
-                    console.log(error);
-                }
-
-                console.log("DB QUERY RESULTS:");
-                console.log(results);
-                return results;
+                    console.log("DB QUERY RESULTS:");
+                    console.log(results);
+                    resolve(results);
+                    return results;
+                });
             });
-            
-        })
+
+        });
     },
     test: function(){
         console.log("Getting Connection from Pool......");

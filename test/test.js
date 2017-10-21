@@ -53,7 +53,7 @@ describe("QueryBuilder", function(){
     
                 var result = qBuilder.buildQuery(options);
     
-                expect(result).to.be.a("string").which.equals("SELECT (id, name, level) FROM ps_usertypes WHERE id=1;");
+                expect(result).to.be.a("string").which.equals("SELECT (id, name, level) FROM ps_usertypes WHERE (id=1);");
             });
 
             it("Should return a syntactically correct SELECT statement", function(){
@@ -66,7 +66,7 @@ describe("QueryBuilder", function(){
     
                 var result = qBuilder.buildQuery(options);
     
-                expect(result).to.be.a("string").which.equals("SELECT (name, level) FROM ps_usertypes WHERE level=200;");
+                expect(result).to.be.a("string").which.equals("SELECT (name, level) FROM ps_usertypes WHERE (level=200);");
             });
 
             it("Should return a syntactically correct SELECT statement", function(){
@@ -79,7 +79,7 @@ describe("QueryBuilder", function(){
     
                 var result = qBuilder.buildQuery(options);
     
-                expect(result).to.be.a("string").which.equals("SELECT (name, level) FROM ps_usertypes WHERE name=admin;");
+                expect(result).to.be.a("string").which.equals("SELECT (name, level) FROM ps_usertypes WHERE (name=admin);");
             });
         });
 
