@@ -12,7 +12,6 @@ var restrictedChars = "\/'+=-_|[](){},.?!@#$%^&*:;\"";
 /* DEBUGGING */
 router.get('/testdb', function(req, res){
   db.test();
-  db.query("INSERT INTO ps_users (username, password, email, dateJoined, fk_user_type) VALUES ('nodetest', 'pass', 'node@node.com', '1991-09-01 10:11:12', 0);");
   res.send("Testing DB......");
 })
 
@@ -22,82 +21,93 @@ router.get('/', function(req, res, next) {
 });
 
 /*TODO: addUser */
-router.post('/addUser/:username/:password/:email/:datejoined/:usertype', function(req, res){
-  var params = req.params;
-  console.log(params);
+router.post('/addUser', function(req, res){
+  userManager.addUser(req.body);
   res.sendStatus(200);
 });
 
 /*TODO: removeUser */
-router.delete('/', function(req, res){
+router.delete('/deleteUser', function(req, res){
 
+  res.sendStatus(200);
 });
 
 /*TODO: requestToken */
-router.get('/', function(req, res){
+router.get('/requestToken', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: getAllGeoForGroup */
-router.get('/', function(req, res){
+router.get('/getGeoForGroup', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: getAllGeoForUser */
-router.get('/', function(req, res){
+router.get('/getGeoForUser', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: addGeo */
-router.post('/', function(req, res){
+router.post('/addGeo', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: removeGeo */
-router.delete('/', function(req, res){
+router.delete('/removeGeo', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: addCampingListItem*/
-router.post('/', function(req, res){
+router.post('/addCampingListItem', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: removeCampingListItem */
-router.delete('/', function(req, res){
+router.delete('/removeCampingListItem', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: updateCampingListItem */
-router.post('/', function(req, res){
+router.post('/updateCampingListItem', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: getFullCampingList */
-router.get('/', function(req, res){
+router.get('/getFullCampingList', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: newMessage */
-router.post('/', function(req, res){
+router.post('/addNewMessage', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: removeMessage */
-router.delete('/', function(req, res){
+router.delete('/removeMessage', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: getAllMessages */
-router.get('/', function(req, res){
+router.get('/getAllMessages', function(req, res){
   
+  res.sendStatus(200);
 });
 
 /*TODO: getNewMessages */
-router.get('/', function(req, res){
+router.get('/getNewMessages', function(req, res){
   
+  res.sendStatus(200);
 });
-
-/* */
 
 module.exports = router;
