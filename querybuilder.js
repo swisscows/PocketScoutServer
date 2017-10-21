@@ -109,10 +109,28 @@ function buildQuery(options) {
      * Expected properties based on command:
      * 
      * SELECT:
-     *      command, (the command)
-     *      tableName, (the name of the table to select from)
-     *      cols, (the columns to select from, this is an array of strings)
-     *      where (A string to be placed exactly after the WHERE keyword)      
+     *      command: (the command, commands.select)
+     *      tableName: (the name of the table to select from, tables.[THE_TABLE_YOU_WANT].tableName)
+     *      cols: (the columns to select from, this is an array of strings)
+     *      where: (A string to be placed exactly after the WHERE keyword)
+     * 
+     * INSERT:
+     *      command: (the command, commands.insert)
+     *      tableName: (the name of the table to insert into, tables.[THE_TABLE_YOU_WANT].tableName)
+     *      cols: (the columns to insert into, this is an array of strings)
+     *      values: (the values you want to add in the same order as the columns were specified. This is a mixed type array where the type matches that of the column it is being inserted into)
+     * 
+     * DELETE:
+     *      command: (the command, commands.delete)
+     *      tableName: (the name of the table to delete from, tables.[THE_TABLE_YOU_WANT].tableName)
+     *      where: (a string which is evaluated by the DB to determine what to delete ex. WHERE (thisCol=thisValue))
+     * 
+     * UPDATE:
+     *      command: (the command, commands.update)
+     *      tableName: (the name of the table to update, tables.[THE_TABLE_YOU_WANT].tableName)
+     *      cols: (the columns you would like to update, this is an array of strings)
+     *      values: (the updated values for the columns, this is also an array of strings matching one-to-one with cols)
+     *      where: (a string which is evaluated by the DB to determine what to update ex. WHERE (thisCol=thisValue))
      */
 
      // SELECT
