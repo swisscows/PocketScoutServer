@@ -1,10 +1,29 @@
 var db = require('../dbHelper.js');
 var q = require('../querybuilder.js');
+var uuid = require('uuid/v4');
 var tables = q.tables;
 var commands = q.commands;
 
-function addUser(jsonInput){
+function addUser(ji){
+    /**
+     * Expects:
+     *  jsonInput = {
+     *      username: (string containing username)
+     *      password: (string containing password)
+     *      email: (string containing email)
+     *      dateJoined: (string containing a valid DateTime)
+     *      user_type: (integer which denotes the user type)
+     *  }
+     */
 
+     var o = {
+         command: commands.insert,
+         tableName: tables.users.tableName,
+         cols: tables.users.allExceptID(),
+         values: ["'" + ji.username + "'", "'" + ji.password + "'", "'" + ji.email + "'", "'" + ji.dateJoined + "'", null, null, ji.user_type,"'" + uuid() + "'"]
+     }
+
+     return db.query(q.buildQuery(o));
 }
 
 function getUser(userID){

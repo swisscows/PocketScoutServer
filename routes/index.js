@@ -22,12 +22,15 @@ router.get('/', function(req, res, next) {
 
 /*TODO: addUser */
 router.post('/addUser', function(req, res){
-  userManager.addUser(req.body);
-  res.sendStatus(200);
+  userManager.addUser(req.body)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? "Ok" : "Failed");
+    });
 });
 
 router.get('/getUser/:userID', function(req, res){
-  var user = userManager.getUser(req.params.userID)
+  userManager.getUser(req.params.userID)
     .then(function(results){
       res.status(results ? 200 : 404);
       res.send(results ? results : null);
