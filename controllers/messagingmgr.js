@@ -1,1 +1,1 @@
-var db = require('../dbHelper.js');
+var db = require('../dbhelper.js');

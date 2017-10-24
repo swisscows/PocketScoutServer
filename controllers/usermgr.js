@@ -1,4 +1,4 @@
-var db = require('../dbHelper.js');
+var db = require('../dbhelper.js');
 var q = require('../querybuilder.js');
 var uuid = require('uuid/v4');
 var tables = q.tables;
