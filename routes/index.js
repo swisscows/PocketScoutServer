@@ -1,5 +1,5 @@
 var express = require('express');
-var db = require('../dbHelper.js');
+var db = require('../dbhelper.js');
 var userManager = require('../controllers/usermgr.js');
 var clManager = require('../controllers/campinglistmgr.js');
 var geoManager = require('../controllers/geomgr.js');

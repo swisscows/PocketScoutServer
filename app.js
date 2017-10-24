@@ -6,6 +6,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var api = require('./routes/index');
 var qBuilder = require("./querybuilder.js");
+var security = require("./security.js");
+var crypto = require("crypto-js");
+
+
+console.log(crypto.AES.encrypt("Message", "My Key".toString()));
 
 
 
