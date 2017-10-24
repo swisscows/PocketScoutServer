@@ -53,7 +53,7 @@ describe("QueryBuilder", function(){
     
                 var result = qBuilder.buildQuery(options);
     
-                expect(result).to.be.a("string").which.equals("SELECT (id, name, level) FROM ps_usertypes WHERE (id=1);");
+                expect(result).to.be.a("string").which.equals("SELECT id, name, level FROM ps_usertypes WHERE (id=1);");
             });
 
             it("Should return a syntactically correct SELECT statement", function(){
@@ -66,7 +66,7 @@ describe("QueryBuilder", function(){
     
                 var result = qBuilder.buildQuery(options);
     
-                expect(result).to.be.a("string").which.equals("SELECT (name, level) FROM ps_usertypes WHERE (level=200);");
+                expect(result).to.be.a("string").which.equals("SELECT name, level FROM ps_usertypes WHERE (level=200);");
             });
 
             it("Should return a syntactically correct SELECT statement", function(){
@@ -79,7 +79,7 @@ describe("QueryBuilder", function(){
     
                 var result = qBuilder.buildQuery(options);
     
-                expect(result).to.be.a("string").which.equals("SELECT (name, level) FROM ps_usertypes WHERE (name=admin);");
+                expect(result).to.be.a("string").which.equals("SELECT name, level FROM ps_usertypes WHERE (name=admin);");
             });
         });
 
@@ -145,6 +145,18 @@ describe("QueryBuilder", function(){
 
                 var result = qBuilder.buildQuery(options);
                 expect(result).to.be.a("string").which.equals("DELETE FROM ps_users WHERE (email LIKE sample.test@gmail.com);");
+            });
+
+            it("Should return a syntactically correct DELETE statement", function(){
+                var userID = "da8d6b17-8cd9-479f-b537-431d623b5331"
+                var o = {
+                    command: qBuilder.commands.delete,
+                    tableName: t.users.tableName,
+                    where: t.users.user_id() + "='" + userID + "'"
+                };
+
+                var result = qBuilder.buildQuery(o);
+                expect(result).to.be.a("string").which.equals("DELETE FROM ps_users WHERE (user_id='da8d6b17-8cd9-479f-b537-431d623b5331');")
             });
         });
 
