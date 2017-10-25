@@ -13,7 +13,7 @@ var restrictedChars = "\/'+=-_|[](){},.?!@#$%^&*:;\"";
 router.get('/testdb', function(req, res){
   db.test();
   res.send("Testing DB......");
-})
+});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -25,7 +25,7 @@ router.post('/addUser', function(req, res){
   userManager.addUser(req.body)
     .then(function(results){
       res.status(results ? 200 : 404);
-      res.send(results ? "Ok" : "Failed");
+      res.send(results ? "OK" : "FAIL");
     });
 });
 
