@@ -15,7 +15,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.0",
     "mysql": "latest",
-    "serve-favicon": "~2.4.5"
+    "serve-favicon": "~2.4.5",
+    "uuid": "latest"
   },
   "devDependencies": {
     "chai": "^4.1.2",
