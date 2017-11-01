@@ -67,7 +67,7 @@ const tables = {
     geo: {
         tableName: "ps_geo",
         all: function(){
-            return ["id", "user_id", "group_id", "lat", "long", "datetime"];
+            return ["id", "user_id", "group_id", "lati", "longi", "time_entered"];
         },
         allExceptID: function(){
             return this.all().filter(function(c, i, a){
@@ -187,9 +187,18 @@ function buildQuery(options) {
         var result = options.command + " " + options.tableName + " SET ("
         options.cols.forEach(function(c, i, a){
             if(i == a.length-1){
-                result += options.cols[i] + "=" + options.values[i] + ")";
+                if(typeof(options.values[i]) == 'string'){
+                    result += options.cols[i] + "='" + options.values[i] + "')";
+                }else{
+                    result += options.cols[i] + "=" + options.values[i] + ")";
+                }
             }else{
-                result += options.cols[i] + "=" + options.values[i] + ", ";
+                if(typeof(options.values[i]) == 'string'){
+                    result += options.cols[i] + "='" + options.values[i] + "', ";
+                }else{
+                    result += options.cols[i] + "=" + options.values[i] + ", ";
+                }
+                
             }
         });
 

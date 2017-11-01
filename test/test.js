@@ -1,6 +1,23 @@
 var expect = require('chai').expect;
 var qBuilder = require('../querybuilder.js');
 
+
+describe("UserManager", function(){
+
+});
+
+describe("GeoManager", function(){
+
+});
+
+describe("CampingListManager", function(){
+    
+});
+
+describe("MessagingManager", function(){
+    
+});
+
 describe("QueryBuilder", function(){
     describe("#cleanInputs", function(){
         it("Should remove all non alpha-numeric characters from every string", function(){
@@ -129,22 +146,22 @@ describe("QueryBuilder", function(){
                 var options = {
                     command: qBuilder.commands.delete,
                     tableName: t.users.tableName,
-                    where: t.users.associated_groups() + "=acc23ddf-6e67-425f-9462-f3d1d5fe44a9"
+                    where: t.users.associated_groups() + "='acc23ddf-6e67-425f-9462-f3d1d5fe44a9'"
                 }
 
                 var result = qBuilder.buildQuery(options);
-                expect(result).to.be.a("string").which.equals("DELETE FROM ps_users WHERE (associated_groups=acc23ddf-6e67-425f-9462-f3d1d5fe44a9);");
+                expect(result).to.be.a("string").which.equals("DELETE FROM ps_users WHERE (associated_groups='acc23ddf-6e67-425f-9462-f3d1d5fe44a9');");
             });
 
             it("Should return a syntactically correct DELETE statement", function(){
                 var options = {
                     command: qBuilder.commands.delete,
                     tableName: t.users.tableName,
-                    where: t.users.email() + " LIKE sample.test@gmail.com"
+                    where: t.users.email() + " LIKE 'sample.test@gmail.com'"
                 }
 
                 var result = qBuilder.buildQuery(options);
-                expect(result).to.be.a("string").which.equals("DELETE FROM ps_users WHERE (email LIKE sample.test@gmail.com);");
+                expect(result).to.be.a("string").which.equals("DELETE FROM ps_users WHERE (email LIKE 'sample.test@gmail.com');");
             });
 
             it("Should return a syntactically correct DELETE statement", function(){
@@ -167,10 +184,10 @@ describe("QueryBuilder", function(){
                     tableName: t.usertypes.tableName,
                     cols: t.usertypes.all(),
                     values: [4, "nameTest", 30],
-                    where: t.usertypes.name() + "=admin"
+                    where: t.usertypes.name() + "='admin'"
                 };
 
-                expect(qBuilder.buildQuery(options)).to.be.a("string").which.equals("UPDATE ps_usertypes SET (id=4, name=nameTest, level=30) WHERE (name=admin);");
+                expect(qBuilder.buildQuery(options)).to.be.a("string").which.equals("UPDATE ps_usertypes SET (id=4, name='nameTest', level=30) WHERE (name='admin');");
             });
 
             it("Should return a syntactically correct UPDATE statement", function(){
@@ -178,11 +195,11 @@ describe("QueryBuilder", function(){
                     command: qBuilder.commands.update,
                     tableName: t.geo.tableName,
                     cols: t.geo.allExceptID(),
-                    values: ["e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e", "ab338611-a6e2-428a-8744-0d01e8560b03", "34.2743", "10.3840", "2010-10-10 10:10:19"],
-                    where: t.geo.userID() + "=e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e"
+                    values: ["e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e", "ab338611-a6e2-428a-8744-0d01e8560b03", 34.2743, 10.3840, "2010-10-10 10:10:19"],
+                    where: t.geo.userID() + "='e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e'"
                 };
 
-                expect(qBuilder.buildQuery(options)).to.be.a("string").which.equals("UPDATE ps_geo SET (user_id=e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e, group_id=ab338611-a6e2-428a-8744-0d01e8560b03, lat=34.2743, long=10.3840, datetime=2010-10-10 10:10:19) WHERE (user_id=e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e);");
+                expect(qBuilder.buildQuery(options)).to.be.a("string").which.equals("UPDATE ps_geo SET (user_id='e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e', group_id='ab338611-a6e2-428a-8744-0d01e8560b03', lat=34.2743, long=10.384, datetime='2010-10-10 10:10:19') WHERE (user_id='e46ba8c6-4d8c-42c8-b7f5-02482f01fe8e');");
             });
         });
     });
