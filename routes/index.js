@@ -65,15 +65,18 @@ router.get('/getGeoForGroup', function(req, res){
 });
 
 /*TODO: getAllGeoForUser */
-router.get('/getGeoForUser', function(req, res){
+router.get('/getGeoForUser/:userID', function(req, res){
   
   res.sendStatus(200);
 });
 
 /*TODO: addGeo */
 router.post('/addGeo', function(req, res){
-  
-  res.sendStatus(200);
+  geoManager.addGeoEntry(req.body)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
 });
 
 /*TODO: removeGeo */

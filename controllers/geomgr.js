@@ -3,30 +3,59 @@ var q = require('../querybuilder.js');
 var commands = q.commands;
 var tables = q.tables;
 
-function addGeoEntry(ji){
+function addGeoEntry(ji) {
     var o = {
         command: commands.insert,
         tableName: tables.geo.tableName,
         cols: tables.geo.allExceptID(),
-        values: [ji.userID, ji.groupID, ]
-
+        values: [ji.userID, ji.groupID, ji.lat, ji.long, ji.time]
     };
+
+    return db.query(q.buildQuery(o));
 }
 
-function updateGeoEntry(index){
+function updateGeoEntry(ji) {
+    var o = {
+        command: commands.update,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.allExceptID(),
+        values: [ji.userID, ji.groupID, ji.lat, ji.long, ji.time],
+        where: tables.geo.userID() + "='" + ji.userID + "'"
+    };
 
+    return db.query(q.buildQuery(o));
 }
 
-function removeGeoEntry(index){
+function removeGeoEntry(userID) {
+    var o = {
+        command: commands.delete,
+        tableName: tables.geo.tableName,
+        where: tables.geo.userID() + "='" + userID + "'"
+    };
 
+    return db.query(q.buildQuery(o));
 }
 
-function getGeoEntriesByUser(userID){
-    
+function getGeoEntriesByUser(userID) {
+    var o = {
+        command: commands.select,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.all(),
+        where: tables.geo.userID() + "='" + userID + "'"
+    };
+
+    return db.query(q.buildQuery(o));
 }
 
-function getGeoEntriesByGroup(groupID){
+function getGeoEntriesByGroup(groupID) {
+    var o = {
+        command: commands.select,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.all(),
+        where: tables.geo.groupID() + "='" + groupID + "'"
+    };
 
+    return db.query(q.buildQuery(o));
 }
 
 module.exports = {
