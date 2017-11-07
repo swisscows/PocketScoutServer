@@ -27,6 +27,12 @@ function addUser(ji){
 }
 
 function getUser(userID){
+    /**
+     * Expects: 
+     * 
+     * userID = a string containing the user's user_id
+     */
+
     var o = {
         command: commands.select,
         tableName: users.tableName,
@@ -38,6 +44,11 @@ function getUser(userID){
 }
 
 function removeUser(userID){
+    /**
+     * Expects:
+     * 
+     * userID = a string containing the user's user_id
+     */
     var o = {
         command: commands.delete,
         tableName: users.tableName,
@@ -48,6 +59,16 @@ function removeUser(userID){
 }
 
 function updateUser(ji){
+    /**
+     * Expects:
+     * 
+     * jsonObject = {
+     *      cols: an array of strings which correspond to column names in the database
+     *      values: a mixed type 1to1 array of the values to go in the columns provided
+     *      where: a string which will be inserted directly after the WHERE keyword in the query
+     * }
+     */
+
     var o = {
         command: commands.update,
         tableName: users.tableName,
@@ -60,6 +81,11 @@ function updateUser(ji){
 }
 
 function getUsersInGroup(groupID){
+    /**
+     * Expects:
+     * 
+     * groupID = a string containing the group's group_id
+     */
     var o = {
         command: commands.select,
         tableName: users.tableName,
