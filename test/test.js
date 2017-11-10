@@ -3,6 +3,9 @@ var qBuilder = require('../querybuilder.js');
 var sinon = require('sinon');
 var db = require('../dbhelper.js');
 
+const tables = qBuilder.tables;
+const commands = qBuilder.commands;
+
 var userManager = require('../controllers/usermgr.js');
 var geoManager = require('../controllers/geomgr.js');
 var messagingManager = require('../controllers/messagingmgr.js');
@@ -37,10 +40,10 @@ describe("UserManager", function(){
 
            var userID = "a9eb2230-8a77-47f9-919f-77ba32780814";
            var o = {
-               command: qBuilder.commands.select,
-               tableName: qBuilder.tables.users.tableName,
-               cols: qBuilder.tables.users.all(),
-               where: qBuilder.tables.users.user_id() + "='a9eb2230-8a77-47f9-919f-77ba32780814'"
+               command: commands.select,
+               tableName: tables.users.tableName,
+               cols: tables.users.all(),
+               where: tables.users.user_id() + "='a9eb2230-8a77-47f9-919f-77ba32780814'"
            };
 
             userManager.getUser(userID);
@@ -73,14 +76,42 @@ describe("UserManager", function(){
             var stub = sinon.stub(db, "query");
             var spy = sinon.spy(userManager, "removeUser");
 
+            var userID = "bbd03e5a-8a60-4ee7-b1f3-6b5afe5cdd6f";
+
+
+            userManager.removeUser(userID);
+
             stub.restore();
             spy.restore();
+            expect(stub.calledOnce).is.true;
+            expect(stub.getCall(0).args[0]).to.be.equal("DELETE FROM ps_users WHERE (user_id='bbd03e5a-8a60-4ee7-b1f3-6b5afe5cdd6f');");
+            expect(spy.calledOnce).is.true;
+            expect(spy.getCall(0).args[0]).to.be.equal(userID);
+        });
+    });
+    describe("updateUser", function(){
+        it("should query the database once to update a single user", function(){
+            var stub = sinon.stub(db, "query");
+            var spy = sinon.spy(userManager, "updateUser");
+
+            let o = {
+                cols: [tables.users.username(), tables.users.password(), tables.users.email(), tables.users.datejoined()],
+                values: ["usr", "pass", "user@notadomain.com", "2010-10-10 10:10:10"],
+                where: tables.users.user_id() + "='bbd03e5a-8a60-4ee7-b1f3-6b5afe5cdd6f'"
+            };
+
+            userManager.updateUser(o);
+
+            stub.restore();
+            spy.restore();
+            expect(stub.calledOnce).is.true;
+            expect(stub.getCall(0).args[0]).is.equal("UPDATE ps_users SET (username='usr', password='pass', email='user@notadomain.com', dateJoined='2010-10-10 10:10:10') WHERE (user_id='bbd03e5a-8a60-4ee7-b1f3-6b5afe5cdd6f');")
         });
     });
 });
 
 describe("GeoManager", function(){
-
+    
 });
 
 describe("CampingListManager", function(){
@@ -122,7 +153,7 @@ describe("QueryBuilder", function(){
 
             it("Should return null when given invalid params", function(){
                 var options = {
-                    command: qBuilder.commands.select,
+                    command: commands.select,
                     tableName: "",
                     cols: t.users.all(),
                     where: t.users.password + "=password"

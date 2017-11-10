@@ -58,6 +58,28 @@ function getGeoEntriesByGroup(groupID) {
     return db.query(q.buildQuery(o));
 }
 
+function getGeoEntriesForUserSinceDate(userID, date){
+    var o = {
+        command: commands.select,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.all(),
+        where: tables.geo.userID() + "='" + userID + "' AND " + tables.geo.datetime() + ">" + date
+    };
+
+    return db.query(q.buildQuery(o));
+}
+
+function getGeoEntriesForGroupSinceDate(groupID, date){
+    var o = {
+        command: commands.select,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.all(),
+        where: tables.geo.groupID() + "='" + groupID + "' AND " + tables.geo.datetime() + ">" + date
+    };
+
+    return db.query(q.buildQuery(o));
+}
+
 module.exports = {
     addGeoEntry: addGeoEntry,
     updateGeoEntry: updateGeoEntry,

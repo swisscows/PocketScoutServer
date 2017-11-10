@@ -52,7 +52,7 @@ function removeUser(userID){
     var o = {
         command: commands.delete,
         tableName: users.tableName,
-        where: users.user_id + "='" + userID + "'"
+        where: users.user_id() + "='" + userID + "'"
     };
 
     return db.query(q.buildQuery(o));
