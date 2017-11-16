@@ -10,8 +10,7 @@ var security = require("./security.js");
 var crypto = require("crypto-js");
 
 
-console.log(crypto.AES.encrypt("Message", "My Key".toString()));
-
+console.log(crypto.SHA256("Message").toString(crypto.enc.Hex));
 
 
 var app = express();

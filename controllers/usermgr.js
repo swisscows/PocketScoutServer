@@ -43,6 +43,17 @@ function getUser(userID){
     return db.query(q.buildQuery(o));
 }
 
+function getUserWithCredentials(user, pass){
+    var o = {
+        command: commands.select,
+        tableName: tables.users.tableName,
+        cols: tables.users.user_id(),
+        where: tables.users.username() + "='" + user + "' AND " + tables.users.password() + "='" + pass + "'"
+    };
+
+    return db.query(q.buildQuery(o));
+}
+
 function removeUser(userID){
     /**
      * Expects:
@@ -101,3 +112,4 @@ exports.addUser = addUser;
 exports.removeUser = removeUser;
 exports.updateUser = updateUser;
 exports.getUsersInGroup = getUsersInGroup;
+exports.getUserWithCredentials = getUserWithCredentials;

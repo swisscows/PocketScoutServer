@@ -80,6 +80,28 @@ function getGeoEntriesForGroupSinceDate(groupID, date){
     return db.query(q.buildQuery(o));
 }
 
+function getGeoEntriesByUserBetween(userID, startDate, endDate){
+    var o = {
+        command: commands.select,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.allExceptID(),
+        where: tables.geo.userID() + "='" + userID + "' AND " + tables.geo.datetime() + ">" + startDate + " AND " + tables.geo.datetime() + "<" + endDate
+    };
+
+    return db.query(q.buildQuery(o));
+}
+
+function getGeoEntriesByGroupBetween(groupID, startDate, endDate){
+    var o = {
+        command: commands.select,
+        tableName: tables.geo.tableName,
+        cols: tables.geo.allExceptID(),
+        where: tables.geo.groupID() + "='" + groupID + "' AND " + tables.geo.datetime() + ">" + startDate + " AND " + tables.geo.datetime() + "<" + endDate
+    };
+
+    return db.query(q.buildQuery(o));
+}
+
 module.exports = {
     addGeoEntry: addGeoEntry,
     updateGeoEntry: updateGeoEntry,
