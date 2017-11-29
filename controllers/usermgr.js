@@ -1,6 +1,7 @@
 var db = require('../dbhelper.js');
 var q = require('../querybuilder.js');
 var uuid = require('uuid/v4');
+var crypto = require('../security.js');
 var users = q.tables.users;
 var commands = q.commands;
 
@@ -44,11 +45,25 @@ function getUser(userID){
 }
 
 function getUserWithCredentials(user, pass){
+
+    pass = crypto.hashPassword(pass);
+
     var o = {
         command: commands.select,
-        tableName: tables.users.tableName,
-        cols: tables.users.user_id(),
-        where: tables.users.username() + "='" + user + "' AND " + tables.users.password() + "='" + pass + "'"
+        tableName: users.tableName,
+        cols: users.user_id(),
+        where: users.username() + "='" + user + "' AND " + users.password() + "='" + pass + "'"
+    };
+
+    return db.query(q.buildQuery(o));
+}
+
+function getUserWithHashedCredentials(user, pass){
+    var o = {
+        command: commands.select,
+        tableName: users.tableName,
+        cols: users.user_id(),
+        where: users.username() + "='" + user + "' AND " + users.password() + "='" + pass + "'"
     };
 
     return db.query(q.buildQuery(o));

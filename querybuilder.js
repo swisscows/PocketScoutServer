@@ -9,7 +9,7 @@ const tables = {
     users: {
         tableName: "ps_users",
         all: function(){
-            return ["id", "username", "password", "email", "dateJoined", "associated_groups", "security_token", "fk_user_type", "user_id"];
+            return ["id", "username", "password", "email", "dateJoined", "associated_groups", "security_token", "security_token_expiry", "fk_user_type", "user_id"];
         },
         allExceptID: function () {
             return this.all().filter(function (c, i, a) {
@@ -37,11 +37,14 @@ const tables = {
         security_token: function () {
             return this.all()[6];
         },
-        user_type: function () {
+        security_token_expiry :function(){
             return this.all()[7];
         },
-        user_id: function () {
+        user_type: function () {
             return this.all()[8];
+        },
+        user_id: function () {
+            return this.all()[9];
         },
     },
     usertypes: {

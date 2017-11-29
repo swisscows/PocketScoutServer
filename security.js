@@ -1,6 +1,7 @@
 var crypto = require("crypto-js");
 var uuid = require('uuid/v4');
-var userManager = require('controllers/usermgr.js');
+var db = require('./dbhelper.js');
+var userManager = require('./controllers/usermgr.js');
 
 function toSHA256Hash(p){
     var hash =  crypto.SHA256(p);
@@ -22,19 +23,16 @@ function toSHA3Hash(p){
     return hash.toString(crypto.enc.Hex);
 }
 
-function checkCredentials(user, pass){
-    var passHash = toSHA3Hash(pass);
-
-    var user = userManager.getUserWithCredentials(user, passHash);
-
-    if(user == null){
+function requestToken(username, password){
+    let user = userManager.getUserWithCredentials(username, toSHA3Hash(password));
+    if(user != null){
         
     }
-
 }
 
 
 
 module.exports = {
-    hashPassword: hashPassword
+    requestToken: requestToken,
+    toSHA3Hash: toSHA3Hash
 };

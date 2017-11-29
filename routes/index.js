@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('../dbhelper.js');
+var sec = require('../security.js');
 var userManager = require('../controllers/usermgr.js');
 var clManager = require('../controllers/campinglistmgr.js');
 var geoManager = require('../controllers/geomgr.js');
@@ -18,6 +19,15 @@ router.get('/testdb', function(req, res){
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
+});
+
+router.get('/requestToken', function(req, res, next){
+  let token = sec.requestToken(req.params.username, req.params.password);
+  if(token != null){
+    res.status(200);
+    res.send({ "token": token});
+  }
+
 });
 
 /*TODO: addUser */
