@@ -31,6 +31,41 @@ router.get('/requestToken', function(req, res, next){
 });
 
 /*TODO: addUser */
+router.post('/addGroup', function(req, res){
+  groupManager.addGroup(req.body)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? "OK" : "FAIL");
+    });
+});
+
+router.get('/getGroup/:groupID', function(req, res){
+  groupManager.getGroup(req.params.groupID)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
+});
+
+/*TODO: removeUser */
+router.delete('/deleteGroup', function(req, res){
+  groupManager.removeGroup(req.params.groupID)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
+});
+
+router.get('/updateGroup', function(req, res){
+  groupManager.updateGroup(req.body)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
+  
+});
+
+/*TODO: addUser */
 router.post('/addUser', function(req, res){
   userManager.addUser(req.body)
     .then(function(results){
@@ -56,10 +91,15 @@ router.get('/getUsersByGroup/:groupID', function(req, res){
   
 });
 
+
+
 /*TODO: removeUser */
 router.delete('/deleteUser', function(req, res){
-
-  res.sendStatus(200);
+  userManager.removeUser(req.params.userID)
+    .then(function(results){
+      res.status(results ? 200 : 404);
+      res.send(results ? results : null);
+    });
 });
 
 /*TODO: requestToken */
@@ -69,15 +109,21 @@ router.get('/requestToken', function(req, res){
 });
 
 /*TODO: getAllGeoForGroup */
-router.get('/getGeoForGroup', function(req, res){
-  
-  res.sendStatus(200);
+router.get('/getGeoForGroup/:groupID', function(req, res){
+  geoManager.getGeoEntriesByGroup(req.params.groupID)
+  .then(function(results){
+    res.status(results ? 200 : 404);
+    res.send(results ? results : null);
+  });
 });
 
 /*TODO: getAllGeoForUser */
 router.get('/getGeoForUser/:userID', function(req, res){
-  
-  res.sendStatus(200);
+  geoManager.getGeoEntriesByUser(req.params.userID)
+  .then(function(results){
+    res.status(results ? 200 : 404);
+    res.send(results ? results : null);
+  });
 });
 
 /*TODO: addGeo */
@@ -90,9 +136,12 @@ router.post('/addGeo', function(req, res){
 });
 
 /*TODO: removeGeo */
-router.delete('/removeGeo', function(req, res){
-  
-  res.sendStatus(200);
+router.delete('/removeGeo/:id', function(req, res){
+  geoManager.removeGeoEntry(req.body)
+  .then(function(results){
+    res.status(results ? 200 : 404);
+    res.send(results ? results : null);
+  });
 });
 
 /*TODO: addCampingListItem*/
